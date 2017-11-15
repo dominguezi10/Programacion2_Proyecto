@@ -226,7 +226,7 @@ public class Reina extends Pieza {
                     return error = 100;
                 }
             }else if(nuevaY < posicionY && nuevaX == posicionX){
-                E1 = metodo(matriz[posicionY+1][posicionX], matriz, jugador);
+                E1 = metodo(matriz[posicionY-1][posicionX], matriz, jugador);
                 if (E1 > 0) {
                     return error = 100;
                 }

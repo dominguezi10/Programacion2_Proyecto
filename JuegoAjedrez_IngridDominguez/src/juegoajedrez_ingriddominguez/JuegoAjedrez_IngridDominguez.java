@@ -35,7 +35,7 @@ public class JuegoAjedrez_IngridDominguez {
         int n = 0;
         Tablero();
         imprimir(Tablero, 0, 0);
-        int contt = 0;
+        //int contt = 0;
         int juego = 0;
         String Jugador = "";
 
@@ -62,9 +62,9 @@ public class JuegoAjedrez_IngridDominguez {
 
                     x = cordenadaX("" + coordenada.charAt(0));
                     y = cordenadaY(coordenada.charAt(2));
-                    System.out.println(y + "," + x);
+                    //System.out.println(y + "," + x);
                     error = SeleccionPieza(x, y, jugador);
-                    System.out.println(error);
+                    //System.out.println(error);
                 }// fin de la validacion de la seleccion de la pieza
                 System.out.println("pieza seleccionada " + Tablero[y][x]);
                 String pieza = Tablero[y][x];
@@ -129,10 +129,10 @@ public class JuegoAjedrez_IngridDominguez {
                 break;
             }
 
-            contt++;
+            /*contt++;
             if (contt == 6) {
                 condicionJuego = false;
-            }
+            }*/
 
             if (jugador == true) {
                 jugador = false;
@@ -341,19 +341,19 @@ public class JuegoAjedrez_IngridDominguez {
         int error = 0;
         if (coordenada.length() != 3) {
             error = 1;
-            System.out.println("e1");
+            //System.out.println("e1");
         } else if (!coordenada.contains(",")) {
             error = 1;
-            System.out.println("e2");
+            //System.out.println("e2");
         } else if (coordenada.indexOf(",") != 1) {
             error = 1;
-            System.out.println("e3");
+            //System.out.println("e3");
         } else if (coordenada.charAt(0) < 97 || coordenada.charAt(0) > 104) {
             error = 1;
-            System.out.println("e4");
+            //System.out.println("e4");
         } else if (coordenada.charAt(2) < 49 || coordenada.charAt(2) > 56) {
             error = 1;
-            System.out.println("e5");
+            //System.out.println("e5");
         }
 
         return error;
