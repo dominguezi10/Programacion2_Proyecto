@@ -144,21 +144,21 @@ public class Alfin extends Pieza {
             } else if (nuevaX > posicionX && nuevaY > posicionY) {
                 for (int i = 1; i <= (nuevaY - posicionY) - 1; i++) {
                     if (metodo(matriz[posicionY + i][posicionX + i], matriz, jugador) != 0 ||
-                            metodo(matriz[posicionY + i][posicionX - i], matriz, Contrincante) != 0) {
+                            metodo(matriz[posicionY + i][posicionX +i], matriz, Contrincante) != 0) {
                         error = 1;
                     }
                 }// fin del for
             } else if (nuevaX < posicionX && nuevaY < posicionY) {
                 for (int i = 1; i <= (posicionY - nuevaY) - 1; i++) {
                     if (metodo(matriz[posicionY - i][posicionX - i], matriz, jugador) != 0 ||
-                            metodo(matriz[posicionY + i][posicionX - i], matriz, Contrincante) != 0) {
+                            metodo(matriz[posicionY - i][posicionX - i], matriz, Contrincante) != 0) {
                         error = 1;
                     }
                 }// fin del for
             } else if (nuevaX > posicionX && nuevaY < posicionY) {
                 for (int i = 1; i <= (posicionY - nuevaY) - 1; i++) {
                     if (metodo(matriz[posicionY - i][posicionX + i], matriz, jugador) != 0 ||
-                            metodo(matriz[posicionY + i][posicionX - i], matriz, Contrincante) != 0) {
+                            metodo(matriz[posicionY - i][posicionX +i], matriz, Contrincante) != 0) {
                         System.out.println(matriz[posicionY - i][posicionX + i]);
                         error = 1;
                     }

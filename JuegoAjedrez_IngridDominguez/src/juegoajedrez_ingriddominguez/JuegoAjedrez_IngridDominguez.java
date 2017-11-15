@@ -82,6 +82,7 @@ public class JuegoAjedrez_IngridDominguez {
                     nuevaY = cordenadaY(coordenada2.charAt(2));
 
                     mov = CreacionMovimiento(n, x, y, nuevaX, nuevaY, jugador);
+                    //System.out.println("mov "+mov +" "+n);
                     if (mov > 0 && mov < 100) {
                         //JOptionPane.showMessageDialog(null, "Movimiento Invalido!");
                         System.out.println("Movimiento Invalido!!");
@@ -424,12 +425,12 @@ public class JuegoAjedrez_IngridDominguez {
         } else if (n_pieza == 5) {
             movimientos.add(new Reina(x, y, nuevaX, nuevaY));
         } else if (n_pieza == 6) {
-            movimientos.add(new Peon(nuevaX, nuevaY, x, y, nuevaX, nuevaY));
+            movimientos.add(new Peon(x, y, nuevaX, nuevaY));
         }
         // fin condicion
 
         mov = movimientos.get(movimientos.size() - 1).movimiento(Tablero, jugador);
-        System.out.println(mov);
+        //System.out.println( mov);
         return mov;
     }// fin del metodo que crea el movimineto
 

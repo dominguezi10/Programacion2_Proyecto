@@ -30,7 +30,6 @@ public class Torre extends Pieza {
        
         int E1 = 0;
         int error = 0;
-        System.out.println(posicionY + "," + posicionX);
         // ver si se puede o no mover
         if (posicionX == 1 && posicionY == 0) {
             if (nuevaY > posicionY && nuevaX == posicionX) {
@@ -185,14 +184,11 @@ public class Torre extends Pieza {
         // movimiento que sea correcto
         if ((posicionX < nuevaX || posicionX > nuevaX) && nuevaY != posicionY) {
             error = 1;
-            System.out.println("erooooo1");
         } else if ((posicionY < nuevaY || posicionY > nuevaY) && nuevaX != posicionX) {
             error = 1;
-            System.out.println("erooooo2");
         } else {
             String piezaS = matriz[nuevaY][nuevaX];
             error = metodo(piezaS, matriz, jugador);
-            System.out.println("er 3" + error);
         }
 
         if (error == 0) {
@@ -273,7 +269,6 @@ public class Torre extends Pieza {
         }
         
         
-        System.out.println("erni "+ error);
         return error;
     }// fin del metodo
 
