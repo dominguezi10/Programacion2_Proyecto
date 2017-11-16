@@ -14,19 +14,20 @@ import javax.swing.JOptionPane;
  * @author 1234
  */
 public class JuegoAjedrez_IngridDominguez {
-
+    //  RECORDA QUE TENES QUE VALIDAR QUE EL JAQUE NO APARESCA CUANDO EL PEON
+    //CERCA POR QUE SE SALDRIA DE LA MATRIZ
     static Scanner lectura = new Scanner(System.in);
     static String Tablero[][] = new String[9][9];
     static int ReyY1 = 0;
-    static int ReyX1 = 5;
+    static int ReyX1 = 4;
     static int ReyY2 = 7;
-    static int ReyX2 = 5;
+    static int ReyX2 = 4;
     static ArrayList<Pieza> movimientos = new ArrayList();
 
     public static void main(String[] args) {
         String coordenada = "";
         String coordenada2 = "";
-        boolean jugador = true;
+        boolean jugador = false;
         int x = 0;
         int y = 0;
         int nuevaX = 0;
@@ -34,6 +35,7 @@ public class JuegoAjedrez_IngridDominguez {
         int mov = 1;
         int n = 0;
         Tablero();
+        System.out.println("      Juego Ajedrez");
         imprimir(Tablero, 0, 0);
         //int contt = 0;
         int juego = 0;
@@ -48,9 +50,9 @@ public class JuegoAjedrez_IngridDominguez {
             while (PiezaMover == true) {
                 error = 1;
                 if (jugador == true) {
-                    Jugador = "Jugador 1";
-                } else {
                     Jugador = "Jugador 2";
+                } else {
+                    Jugador = "Jugador 1";
                 }
                 System.out.println("Turno del " + Jugador);
                 while (error == 1) {
@@ -82,7 +84,7 @@ public class JuegoAjedrez_IngridDominguez {
                     nuevaY = cordenadaY(coordenada2.charAt(2));
 
                     mov = CreacionMovimiento(n, x, y, nuevaX, nuevaY, jugador);
-                    //System.out.println("mov "+mov +" "+n);
+                   // System.out.println("mov "+mov +" "+n);
                     if (mov > 0 && mov < 100) {
                         //JOptionPane.showMessageDialog(null, "Movimiento Invalido!");
                         System.out.println("Movimiento Invalido!!");
@@ -151,6 +153,7 @@ public class JuegoAjedrez_IngridDominguez {
             for (int j = 0; j < Tablero.length; j++) {
                 if (i == 0) {
                     if (j == 1 || j == Tablero.length - 1) {
+                        //System.out.println("\033[32m→CARGANDO ASIENTOS←");
                         Tablero[i][j] = "♜";
                     } else if (j == 2 || j == Tablero.length - 2) {
                         Tablero[i][j] = "♞";
@@ -428,14 +431,24 @@ public class JuegoAjedrez_IngridDominguez {
             movimientos.add(new Peon(x, y, nuevaX, nuevaY));
         }
         // fin condicion
-
+        
+        
+        //Tablero = Tablero;
+        //System.out.println("pieza "+Tablero[nuevaY][nuevaX]);
         mov = movimientos.get(movimientos.size() - 1).movimiento(Tablero, jugador);
         //System.out.println( mov);
         return mov;
     }// fin del metodo que crea el movimineto
 
     public static void Movimiento(int n, int x, int y, int nuevaY, int nuevaX, boolean jugador) {
-        Tablero[y][x] = "▒";
+        if((y == 0 || y %2==0) && (x%2 != 0) ){
+            Tablero[y][x] = "▓";
+        }else if(y%2 != 0 && x%2== 0){
+            Tablero[y][x] = "▓";
+        }else{
+            Tablero[y][x] = "▒";
+        }
+        
         switch (n) {
             case 1:
                 if (jugador == true) {
@@ -484,6 +497,7 @@ public class JuegoAjedrez_IngridDominguez {
         }// fin del caso
 
         System.out.println("");
+        System.out.println("    Juego Ajedrez");
         imprimir(Tablero, 0, 0);
     }// fin del metodo
 

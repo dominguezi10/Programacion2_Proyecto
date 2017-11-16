@@ -5,6 +5,8 @@
  */
 package juegoajedrez_ingriddominguez;
 
+import static juegoajedrez_ingriddominguez.JuegoAjedrez_IngridDominguez.Tablero;
+
 /**
  *
  * @author 1234
@@ -31,27 +33,24 @@ public class Peon extends Pieza {
         int n1 = nuevaY - posicionY;
         int n2 = nuevaX - posicionX;
         boolean contrincante;
-        if(jugador == true){
+        if (jugador == true) {
             contrincante = false;
-        }else{
+        } else {
             contrincante = true;
         }
         //VALIDA QUE EL PEON NO COMA PARAA ADELANTE
-
+//        System.out.println(posicionY+ " "+nuevaY);
+//        System.out.println(posicionX+ " "+nuevaX);
         String piezaS = matriz[nuevaY][nuevaX];
         if (jugador == true) {
             if ((posicionY + 1 == nuevaY) && (nuevaX == posicionX)) {
                 error = 0;
                 piezaS = matriz[nuevaY][nuevaX];
                 error = metodo(piezaS, matriz, jugador);
-                System.out.println("moo "+error);
-                error = error +metodo(piezaS, matriz, contrincante);
-                //int errorE = metodo(piezaS, matriz, false);
-                System.out.println("ssooo "+error);
+                error += metodo(piezaS, matriz, contrincante);
                 if (error > 0) {
                     return error = 100;
                 }
-                System.out.println("e1");
             } else if (nuevaY < posicionY) {
                 error = 1;
                 return error;
@@ -60,34 +59,57 @@ public class Peon extends Pieza {
                 String piezaComer = "";
                 if (nuevaX > posicionX) {
                     piezaComer = matriz[posicionY + 1][posicionX + 1];
-                    if (piezaComer.equals("▒")) {
+                    if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
                         error = 1;
                     } else {
                         error = metodo(piezaComer, matriz, jugador);
+                        error += metodo(matriz[nuevaY][nuevaX], matriz, jugador);
+                        error += metodo(matriz[nuevaY][nuevaX], matriz, contrincante);
                     }
-
+                    
+                    
                     if (error == 0) {
-                        matriz[posicionY + 1][posicionX + 1] = "▒";
+                        //matriz[posicionY + 1][posicionX + 1] = "▒";
+                        if ((posicionY + 1 == 0 || posicionY + 1 % 2 == 0) && (posicionX + 1 % 2 != 0)) {
+                            Tablero[posicionY + 1][posicionX + 1] = "▓";
+                            System.out.println(Tablero[posicionY + 1][posicionX + 1]);
+                        } else if (posicionY + 1 % 2 != 0 && posicionX + 1 % 2 != 0) {
+                            Tablero[posicionY + 1][posicionX + 1] = "▓";
+                        } else {
+                            Tablero[posicionY + 1][posicionX + 1] = "▒";
+                        }
+
                     }
 
                 } else if (nuevaX < posicionX) {
                     piezaComer = matriz[posicionY + 1][posicionX - 1];
-                    if (piezaComer.equals("▒")) {
+                    if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
                         error = 1;
                     } else {
                         error = metodo(piezaComer, matriz, jugador);
+                        error += metodo(matriz[nuevaY][nuevaX], matriz, jugador);
+                        error += metodo(matriz[nuevaY][nuevaX], matriz, contrincante);
                     }
 
                     if (error == 0) {
-                        matriz[posicionY + 1][posicionX - 1] = "▒";
+                        //matriz[posicionY + 1][posicionX + 1] = "▒";
+                        if ((posicionY + 1 == 0 || posicionY + 1 % 2 == 0) && ((posicionX - 1) % 2 != 0)) {
+                            Tablero[posicionY + 1][posicionX - 1] = "▓";
+                            // System.out.println("---");
+                        } else if (posicionY + 1 % 2 != 0 && posicionX - 1 % 2 != 0) {
+                            Tablero[posicionY + 1][posicionX - 1] = "▓";
+                        } else {
+                            Tablero[posicionY + 1][posicionX - 1] = "▒";
+                        }
+
                     }
                 }// fin de la condicion
 
             } else if (posicionY == 1) {
                 if (nuevaY - posicionY == 2 && nuevaX == posicionX) {
-                    System.out.println("eeee");
+                    int E2 = metodo(matriz[nuevaY + 1][nuevaX], matriz, jugador);
                     int E1 = metodo(matriz[nuevaY][nuevaX], matriz, jugador);
-                    if (E1 > 0) {
+                    if (E1 > 0 || E2 > 0) {
                         return error = 100;
                     }
                 } else if (((nuevaY - 1) != posicionY) || (nuevaX != posicionX)) {
@@ -103,7 +125,7 @@ public class Peon extends Pieza {
                 error = 0;
                 piezaS = matriz[nuevaY][nuevaX];
                 error = metodo(piezaS, matriz, jugador);
-                error +=metodo(piezaS, matriz, contrincante);
+                error += metodo(piezaS, matriz, contrincante);
                 //int errorE = metodo(piezaS, matriz, true);
                 if (error > 0) {
                     return error = 100;
@@ -117,33 +139,54 @@ public class Peon extends Pieza {
                 String piezaComer = "";
                 if (nuevaX > posicionX) {
                     piezaComer = matriz[posicionY - 1][posicionX + 1];
-                    if (piezaComer.equals("▒")) {
+                    if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
                         error = 1;
                     } else {
                         error = metodo(piezaComer, matriz, jugador);
+                        error += metodo(matriz[nuevaY][nuevaX], matriz, jugador);
+                        error += metodo(matriz[nuevaY][nuevaX], matriz, contrincante);
                     }
 
                     if (error == 0) {
-                        matriz[posicionY - 1][posicionX + 1] = "▒";
+                        //matriz[posicionY - 1][posicionX + 1] = "▒";
+                        if ((posicionY - 1 == 0 || posicionY - 1 % 2 == 0) && ((posicionX + 1) % 2 != 0)) {
+                            Tablero[posicionY - 1][posicionX + 1] = "▓";
+                            // System.out.println("---");
+                        } else if (posicionY - 1 % 2 != 0 && posicionX - 1 % 2 != 0) {
+                            Tablero[posicionY - 1][posicionX + 1] = "▓";
+                        } else {
+                            Tablero[posicionY - 1][posicionX + 1] = "▒";
+                        }
                     }
 
                 } else if (nuevaX < posicionX) {
                     piezaComer = matriz[posicionY - 1][posicionX - 1];
-                    if (piezaComer.equals("▒")) {
+                    if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
                         error = 1;
                     } else {
                         error = metodo(piezaComer, matriz, jugador);
+                        error += metodo(matriz[nuevaY][nuevaX], matriz, jugador);
+                        error += metodo(matriz[nuevaY][nuevaX], matriz, contrincante);
                     }
 
                     if (error == 0) {
-                        matriz[posicionY - 1][posicionX - 1] = "▒";
+                       // matriz[posicionY - 1][posicionX - 1] = "▒";
+                        if ((posicionY - 1 == 0 || posicionY - 1 % 2 == 0) && ((posicionX - 1) % 2 != 0)) {
+                            Tablero[posicionY - 1][posicionX - 1] = "▓";
+                            // System.out.println("---");
+                        } else if (posicionY - 1 % 2 != 0 && posicionX - 1 % 2 != 0) {
+                            Tablero[posicionY - 1][posicionX - 1] = "▓";
+                        } else {
+                            Tablero[posicionY - 1][posicionX - 1] = "▒";
+                        }
                     }
                 }// fin de la condicion
 
             } else if (posicionY == matriz.length - 3) {
                 if (posicionY - nuevaY == 2 && nuevaX == posicionX) {
+                    int E2 = metodo(matriz[nuevaY - 1][nuevaX], matriz, jugador);
                     int E1 = metodo(matriz[nuevaY][nuevaX], matriz, jugador);
-                    if (E1 > 0) {
+                    if (E1 > 0 || E2 > 0) {
                         return error = 100;
                     }
                 } else if ((nuevaY + 1) != posicionY || nuevaX != posicionX) {
@@ -151,10 +194,12 @@ public class Peon extends Pieza {
                     return error;
                 }
             } else if ((nuevaY + 1) != posicionY || nuevaX != posicionX) {
-                    error = 1;
-                    return error;
-                }// configurar para que esto sea valido para comer
+                error = 1;
+                return error;
+            }// configurar para que esto sea valido para comer
         }// fin de la condicion
+        
+            
 
         return error;
     }

@@ -289,18 +289,20 @@ public class Reina extends Pieza {
 
         }else{
             // validacion como si se fuera a mover como torre
+            error = 0;
             boolean Contrincante;
             if (jugador == true) {
                 Contrincante = false;
             } else {
                 Contrincante = true;
             }
-
+            // revisa esta perte por que no la esta tomando 
+//            System.out.println(nuevaY +" "+ posicionY +" , "+ nuevaX + " "+posicionX);
             if (nuevaY > posicionY && nuevaX == posicionX) {
                 for (int i = 1; i <= (nuevaY - posicionY) - 1; i++) {
                     if (metodo(matriz[posicionY + i][posicionX], matriz, jugador) != 0
                             || metodo(matriz[posicionY + i][posicionX], matriz, Contrincante) != 0) {
-                        error = 1;
+                      error = 1;
                     }
                 }
             } else if (nuevaY < posicionY && nuevaX == posicionX) {
@@ -324,18 +326,22 @@ public class Reina extends Pieza {
                         error = 1;
                     }
                 }
+            }else{
+                error = 1;
             }// fin
             
             
             
         }// fin de la condicon
-
+        //System.out.println("eeee r "+error);
         if (error == 0) {
-            String pieza = matriz[nuevaY][nuevaY];
+            String pieza = matriz[nuevaY][nuevaX];
+            //System.out.println(pieza);
             error = metodo(pieza, matriz, jugador);
             return error;
         }
-
+        
+        System.out.println("entonce s"+ error);
         return error;
     }
 

@@ -139,6 +139,7 @@ public class Alfin extends Pieza {
                     if (metodo(matriz[posicionY + i][posicionX - i], matriz, jugador) != 0
                             || metodo(matriz[posicionY + i][posicionX - i], matriz, Contrincante) != 0) {
                         error = 1;
+                       // System.out.println("estoy aqui");
                     }
                 }// fin del for
             } else if (nuevaX > posicionX && nuevaY > posicionY) {
@@ -159,7 +160,7 @@ public class Alfin extends Pieza {
                 for (int i = 1; i <= (posicionY - nuevaY) - 1; i++) {
                     if (metodo(matriz[posicionY - i][posicionX + i], matriz, jugador) != 0 ||
                             metodo(matriz[posicionY - i][posicionX +i], matriz, Contrincante) != 0) {
-                        System.out.println(matriz[posicionY - i][posicionX + i]);
+                        //System.out.println(matriz[posicionY - i][posicionX + i]);
                         error = 1;
                     }
                 }// fin del for
@@ -167,7 +168,8 @@ public class Alfin extends Pieza {
         }// fin de la condicion
 
         if (error == 0) {
-            String pieza = matriz[nuevaY][nuevaY];
+            String pieza = matriz[nuevaY][nuevaX];
+            //System.out.println(pieza);
             error = metodo(pieza, matriz, jugador);
         }
 
