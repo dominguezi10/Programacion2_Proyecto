@@ -38,11 +38,10 @@ public class Peon extends Pieza {
         } else {
             contrincante = true;
         }
-        //VALIDA QUE EL PEON NO COMA PARAA ADELANTE
-//        System.out.println(posicionY+ " "+nuevaY);
-//        System.out.println(posicionX+ " "+nuevaX);
+       
         String piezaS = matriz[nuevaY][nuevaX];
         if (jugador == true) {
+            //movimiento bueno cencillo
             if ((posicionY + 1 == nuevaY) && (nuevaX == posicionX)) {
                 error = 0;
                 piezaS = matriz[nuevaY][nuevaX];
@@ -52,13 +51,17 @@ public class Peon extends Pieza {
                     return error = 100;
                 }
             } else if (nuevaY < posicionY) {
+                // no para atras
                 error = 1;
                 return error;
-            } else if (n1 == 2 && (n2 == 2 || n2 == -2)) {
+            } else if (n1 == 1 && (n2 == 1 || n2 == -1)) {
+                // si come en diagonal
                 error = 0;
                 String piezaComer = "";
                 if (nuevaX > posicionX) {
-                    piezaComer = matriz[posicionY + 1][posicionX + 1];
+                    error = metodo(matriz[posicionY + 1][posicionX + 1], matriz, jugador);
+                    return error;
+                    /*piezaComer = matriz[posicionY + 1][posicionX + 1];
                     if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
                         error = 1;
                     } else {
@@ -70,19 +73,22 @@ public class Peon extends Pieza {
                     
                     if (error == 0) {
                         //matriz[posicionY + 1][posicionX + 1] = "▒";
-                        if ((posicionY + 1 == 0 || posicionY + 1 % 2 == 0) && (posicionX + 1 % 2 != 0)) {
+                        if ((((posicionY + 1 )== 0 )|| ((posicionY + 1)%2 == 0)) && ((posicionX + 1)%2 != 0)) {
                             Tablero[posicionY + 1][posicionX + 1] = "▓";
-                            System.out.println(Tablero[posicionY + 1][posicionX + 1]);
-                        } else if (posicionY + 1 % 2 != 0 && posicionX + 1 % 2 != 0) {
+                            //System.out.println(Tablero[posicionY + 1][posicionX + 1]);
+                        } else if (((posicionY+1 )%2 != 0 )&& ((posicionX+1)%2 != 0)) {
+                            //System.out.println("aqui "+(posicionY+1 )+ " "+(posicionX+1));
                             Tablero[posicionY + 1][posicionX + 1] = "▓";
                         } else {
                             Tablero[posicionY + 1][posicionX + 1] = "▒";
                         }
 
-                    }
+                    }*/
 
                 } else if (nuevaX < posicionX) {
-                    piezaComer = matriz[posicionY + 1][posicionX - 1];
+                    error = metodo(matriz[posicionY + 1][posicionX - 1], matriz, jugador);
+                    return error;
+                    /*piezaComer = matriz[posicionY + 1][posicionX - 1];
                     if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
                         error = 1;
                     } else {
@@ -92,20 +98,23 @@ public class Peon extends Pieza {
                     }
 
                     if (error == 0) {
+                        System.out.println((posicionY+1) + " " + (posicionX-1));
                         //matriz[posicionY + 1][posicionX + 1] = "▒";
-                        if ((posicionY + 1 == 0 || posicionY + 1 % 2 == 0) && ((posicionX - 1) % 2 != 0)) {
+                        if (((posicionY + 1 )== 0 || (posicionY + 1 )% 2 == 0) && ((posicionX - 1) % 2 != 0)) {
                             Tablero[posicionY + 1][posicionX - 1] = "▓";
                             // System.out.println("---");
-                        } else if (posicionY + 1 % 2 != 0 && posicionX - 1 % 2 != 0) {
+                        } else if (((posicionY + 1 )% 2 != 0) && ((posicionX - 1 )% 2 != 0)) {
                             Tablero[posicionY + 1][posicionX - 1] = "▓";
                         } else {
                             Tablero[posicionY + 1][posicionX - 1] = "▒";
+                            System.out.println("aqui");
                         }
 
-                    }
+                    }*/
                 }// fin de la condicion
 
             } else if (posicionY == 1) {
+                // que se mueva en dos la primera vez
                 if (nuevaY - posicionY == 2 && nuevaX == posicionX) {
                     int E2 = metodo(matriz[nuevaY + 1][nuevaX], matriz, jugador);
                     int E1 = metodo(matriz[nuevaY][nuevaX], matriz, jugador);
@@ -127,6 +136,7 @@ public class Peon extends Pieza {
                 error = metodo(piezaS, matriz, jugador);
                 error += metodo(piezaS, matriz, contrincante);
                 //int errorE = metodo(piezaS, matriz, true);
+                //System.out.println(error + " cambio");
                 if (error > 0) {
                     return error = 100;
                 }
@@ -134,11 +144,13 @@ public class Peon extends Pieza {
             } else if (nuevaY > posicionY) {
                 error = 1;
                 return error;
-            } else if (n1 == -2 && (n2 == 2 || n2 == -2)) {
+            } else if (n1 == -1 && (n2 == 1 || n2 == -1)) {
                 error = 0;
                 String piezaComer = "";
                 if (nuevaX > posicionX) {
-                    piezaComer = matriz[posicionY - 1][posicionX + 1];
+                    error = metodo(matriz[posicionY - 1][posicionX + 1], matriz, jugador);
+                    return error;
+                    /*piezaComer = matriz[posicionY - 1][posicionX + 1];
                     if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
                         error = 1;
                     } else {
@@ -149,18 +161,20 @@ public class Peon extends Pieza {
 
                     if (error == 0) {
                         //matriz[posicionY - 1][posicionX + 1] = "▒";
-                        if ((posicionY - 1 == 0 || posicionY - 1 % 2 == 0) && ((posicionX + 1) % 2 != 0)) {
+                        if ((((posicionY - 1) == 0) || ((posicionY - 1)%2 == 0)) && ((posicionX + 1)%2 != 0)) {
                             Tablero[posicionY - 1][posicionX + 1] = "▓";
                             // System.out.println("---");
-                        } else if (posicionY - 1 % 2 != 0 && posicionX - 1 % 2 != 0) {
+                        } else if (((posicionY - 1)%2 != 0) && ((posicionX+ 1)%2 != 0)) {
                             Tablero[posicionY - 1][posicionX + 1] = "▓";
                         } else {
                             Tablero[posicionY - 1][posicionX + 1] = "▒";
                         }
-                    }
+                    }*/
 
                 } else if (nuevaX < posicionX) {
-                    piezaComer = matriz[posicionY - 1][posicionX - 1];
+                    error = metodo(matriz[posicionY - 1][posicionX - 1], matriz, jugador);
+                    return error;
+                    /*piezaComer = matriz[posicionY - 1][posicionX - 1];
                     if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
                         error = 1;
                     } else {
@@ -171,15 +185,15 @@ public class Peon extends Pieza {
 
                     if (error == 0) {
                        // matriz[posicionY - 1][posicionX - 1] = "▒";
-                        if ((posicionY - 1 == 0 || posicionY - 1 % 2 == 0) && ((posicionX - 1) % 2 != 0)) {
+                        if ((((posicionY - 1) == 0 )|| ((posicionY - 1)%2 == 0))&& ((posicionX - 1)%2 != 0)) {
                             Tablero[posicionY - 1][posicionX - 1] = "▓";
                             // System.out.println("---");
-                        } else if (posicionY - 1 % 2 != 0 && posicionX - 1 % 2 != 0) {
+                        } else if (((posicionY - 1)%2 != 0) && ((posicionX - 1)%2 != 0)) {
                             Tablero[posicionY - 1][posicionX - 1] = "▓";
                         } else {
                             Tablero[posicionY - 1][posicionX - 1] = "▒";
                         }
-                    }
+                    }*/
                 }// fin de la condicion
 
             } else if (posicionY == matriz.length - 3) {

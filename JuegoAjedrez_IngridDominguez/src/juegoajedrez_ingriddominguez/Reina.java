@@ -341,7 +341,7 @@ public class Reina extends Pieza {
             return error;
         }
         
-        System.out.println("entonce s"+ error);
+        //System.out.println("entonce s"+ error);
         return error;
     }
 

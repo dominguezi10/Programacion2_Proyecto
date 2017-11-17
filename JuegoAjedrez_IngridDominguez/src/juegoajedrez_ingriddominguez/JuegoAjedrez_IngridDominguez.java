@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
  * @author 1234
  */
 public class JuegoAjedrez_IngridDominguez {
+
     //  RECORDA QUE TENES QUE VALIDAR QUE EL JAQUE NO APARESCA CUANDO EL PEON
     //CERCA POR QUE SE SALDRIA DE LA MATRIZ
     static Scanner lectura = new Scanner(System.in);
@@ -41,18 +42,18 @@ public class JuegoAjedrez_IngridDominguez {
         int juego = 0;
         String Jugador = "";
 
-        System.out.println("");
         int error = 1;
         boolean condicionJuego = true;
         while (condicionJuego) {
+            System.out.println("");
             error = 1;
             boolean PiezaMover = true;
             while (PiezaMover == true) {
                 error = 1;
                 if (jugador == true) {
-                    Jugador = "Jugador 2";
+                    Jugador = "\033[32mJugador 2\033[30m";
                 } else {
-                    Jugador = "Jugador 1";
+                    Jugador = "\033[34mJugador 1\033[30m";
                 }
                 System.out.println("Turno del " + Jugador);
                 while (error == 1) {
@@ -84,10 +85,10 @@ public class JuegoAjedrez_IngridDominguez {
                     nuevaY = cordenadaY(coordenada2.charAt(2));
 
                     mov = CreacionMovimiento(n, x, y, nuevaX, nuevaY, jugador);
-                   // System.out.println("mov "+mov +" "+n);
+                    // System.out.println("mov "+mov +" "+n);
                     if (mov > 0 && mov < 100) {
                         //JOptionPane.showMessageDialog(null, "Movimiento Invalido!");
-                        System.out.println("Movimiento Invalido!!");
+                        System.out.println("\033[31mMovimiento Invalido!!\033[30m");
                     }
                     if (mov == 100) {
                         break;
@@ -96,7 +97,7 @@ public class JuegoAjedrez_IngridDominguez {
                 }// while que valida que sel movimineto sea valido
 
                 if (mov == 100) {
-                    System.out.println("La pieza que escogio no se puede mover en esa direccion");
+                    System.out.println("\033[32mLa pieza que escogio no se puede mover en esa direccion\033[30m\n");
                 } else {
                     PiezaMover = false;
                 }
@@ -114,21 +115,22 @@ public class JuegoAjedrez_IngridDominguez {
 
             } else {
                 int Jaque = 0;
-                if(jugador == true){
+                if (jugador == true) {
                     Jaque = CreacionMovimiento(n, nuevaX, nuevaY, ReyX2, ReyY2, jugador);
-                }else{
+                } else {
                     Jaque = CreacionMovimiento(n, nuevaX, nuevaY, ReyX1, ReyY1, jugador);
                 }
-                
-                if(Jaque ==0){
-                    System.out.println("Jaque!\nEl Rey Esta En Posicion \nPara Ser Derrotador");
+
+                if (Jaque == 0) {
+                    System.out.println("\033[34mJaque!\n\033[34mEl Rey Esta En Posicion \n\033[34mPara Ser Derrotador\033[30m");
                 }
             }
 
             juego = JaqueMate(jugador);
+            //juego = SJaque( 0, 0, jugador);
             if (juego == 0) {
                 //JOptionPane.showMessageDialog(null, "JaqueMate\n"+Jugador+" Ganastes!!");
-                System.out.println("JaqueMate\n" + Jugador + " Ganastes!!");
+                System.out.println("\033[31mJaqueMate\n" + Jugador + " Ganastes!!\033[30m");
                 break;
             }
 
@@ -136,7 +138,6 @@ public class JuegoAjedrez_IngridDominguez {
             if (contt == 6) {
                 condicionJuego = false;
             }*/
-
             if (jugador == true) {
                 jugador = false;
             } else {
@@ -240,19 +241,83 @@ public class JuegoAjedrez_IngridDominguez {
         if (posI == matriz.length - 1 && posJ == matriz.length - 1) {
             // System.out.print("\t");
             System.out.println(matriz[posI][posJ] + " ");
+//            if (matriz[posI][posJ].equals("▓")) {
+//                System.out.println("\033[33m" + matriz[posI][posJ] + "\033[30m ");
+//            } else {
+//                System.out.println(matriz[posI][posJ] + " ");
+//            }
         } else {
             if (posJ == matriz.length - 1) {
                 // System.out.print("\t");
                 System.out.println(matriz[posI][posJ]);
+//                if (matriz[posI][posJ].equals("▓")) {
+//                    System.out.println("\033[33m" + matriz[posI][posJ] + "\033[30m ");
+//                } else {
+//                    System.out.println(matriz[posI][posJ] + " ");
+//                }
                 imprimir(matriz, posI + 1, 0);
             } else {
                 //System.out.print("\t");
                 System.out.print(matriz[posI][posJ] + " ");
+//                if (matriz[posI][posJ].equals("▓")) {
+//                    System.out.print("\033[33m" + matriz[posI][posJ] + "\033[30m ");
+//                } else {
+//                    System.out.print(matriz[posI][posJ] + " ");
+//                }
                 imprimir(matriz, posI, posJ + 1);
             }
         }
 
     }// fin del metodo imprimir
+
+    public static int SJaque( int i, int j, boolean jugador) {
+        //int error = 0;
+        System.out.print(i+" "+j);
+        if (i == (Tablero.length - 1) && j == (Tablero.length - 1)) {
+            if (jugador == true) {
+                if (Tablero[i][j].equals("♕")) {
+                    return 1;
+                }
+            } else {
+                if (Tablero[i][j].equals("♛")) {
+                    return 1;
+                }
+
+            }// fin de la condicion
+        } else {
+            if (j == (Tablero.length - 1)) {
+                if (jugador == true) {
+                    if (Tablero[i][j].equals("♕")) {
+                        return 1;
+                    }
+                } else {
+                    if (Tablero[i][j].equals("♛")) {
+                        return 1;
+                    }
+
+                }// fin de la condicion
+                return SJaque((i + 1), j, jugador);
+            } else if (j>=0 && (j<Tablero.length-1) && (i>=0 && i<(Tablero.length-1)) ) {
+                System.out.println("aaa qiu ");
+                if (jugador == true) {
+                    if (Tablero[i][j].equals("♕")) {
+                        System.out.println("donde retorno ");
+                        return 1;
+                    }
+                } else if(jugador == false) {
+                    if (Tablero[i][j].equals("♛")) {
+                        System.out.println("donde retorno1 ");
+                        return 1;
+                    }
+
+                }// fin de la condicion
+                
+                return SJaque( i, (j + 1), jugador);
+            }
+        }
+
+        return 0;
+    }// segundo Jaque
 
     public static int JaqueMate(boolean jugador) {
         int error = 0;
@@ -431,8 +496,7 @@ public class JuegoAjedrez_IngridDominguez {
             movimientos.add(new Peon(x, y, nuevaX, nuevaY));
         }
         // fin condicion
-        
-        
+
         //Tablero = Tablero;
         //System.out.println("pieza "+Tablero[nuevaY][nuevaX]);
         mov = movimientos.get(movimientos.size() - 1).movimiento(Tablero, jugador);
@@ -441,14 +505,14 @@ public class JuegoAjedrez_IngridDominguez {
     }// fin del metodo que crea el movimineto
 
     public static void Movimiento(int n, int x, int y, int nuevaY, int nuevaX, boolean jugador) {
-        if((y == 0 || y %2==0) && (x%2 != 0) ){
+        if ((y == 0 || y % 2 == 0) && (x % 2 != 0)) {
             Tablero[y][x] = "▓";
-        }else if(y%2 != 0 && x%2== 0){
+        } else if (y % 2 != 0 && x % 2 == 0) {
             Tablero[y][x] = "▓";
-        }else{
+        } else {
             Tablero[y][x] = "▒";
         }
-        
+
         switch (n) {
             case 1:
                 if (jugador == true) {
