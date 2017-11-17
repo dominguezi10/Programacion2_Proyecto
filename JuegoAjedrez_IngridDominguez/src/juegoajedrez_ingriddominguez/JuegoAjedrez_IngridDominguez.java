@@ -104,6 +104,22 @@ public class JuegoAjedrez_IngridDominguez {
             }// fin del metodo para ver que la pieza se puede mover
 
             Movimiento(n, x, y, nuevaY, nuevaX, jugador);
+            if(movimientos.get((movimientos.size()-1)) instanceof Peon){
+                if(jugador == true){
+                    //System.out.println(nuevaY);
+                    if(movimientos.get((movimientos.size()-1)).nuevaY == 7){
+                        Coronar(jugador, movimientos.get((movimientos.size()-1)).nuevaY, 
+                                movimientos.get((movimientos.size()-1)).nuevaX);
+                    }
+                }else{
+                    if(movimientos.get((movimientos.size()-1)).nuevaY == 0){
+                        Coronar(jugador, movimientos.get((movimientos.size()-1)).nuevaY, 
+                                movimientos.get((movimientos.size()-1)).nuevaX);
+                    }
+                }
+            }
+            
+            
             if (movimientos.get(movimientos.size() - 1) instanceof Rey) {
                 if (jugador == true) {
                     ReyX1 = movimientos.get(movimientos.size() - 1).getNuevaX();
@@ -126,6 +142,8 @@ public class JuegoAjedrez_IngridDominguez {
                 }
             }
 
+            
+            
             juego = JaqueMate(jugador);
             //juego = SJaque( 0, 0, jugador);
             if (juego == 0) {
@@ -270,9 +288,9 @@ public class JuegoAjedrez_IngridDominguez {
 
     }// fin del metodo imprimir
 
-    public static int SJaque( int i, int j, boolean jugador) {
+    public static int SJaque(int i, int j, boolean jugador) {
         //int error = 0;
-        System.out.print(i+" "+j);
+        System.out.print(i + " " + j);
         if (i == (Tablero.length - 1) && j == (Tablero.length - 1)) {
             if (jugador == true) {
                 if (Tablero[i][j].equals("♕")) {
@@ -297,22 +315,22 @@ public class JuegoAjedrez_IngridDominguez {
 
                 }// fin de la condicion
                 return SJaque((i + 1), j, jugador);
-            } else if (j>=0 && (j<Tablero.length-1) && (i>=0 && i<(Tablero.length-1)) ) {
+            } else if (j >= 0 && (j < Tablero.length - 1) && (i >= 0 && i < (Tablero.length - 1))) {
                 System.out.println("aaa qiu ");
                 if (jugador == true) {
                     if (Tablero[i][j].equals("♕")) {
                         System.out.println("donde retorno ");
                         return 1;
                     }
-                } else if(jugador == false) {
+                } else if (jugador == false) {
                     if (Tablero[i][j].equals("♛")) {
                         System.out.println("donde retorno1 ");
                         return 1;
                     }
 
                 }// fin de la condicion
-                
-                return SJaque( i, (j + 1), jugador);
+
+                return SJaque(i, (j + 1), jugador);
             }
         }
 
@@ -564,5 +582,109 @@ public class JuegoAjedrez_IngridDominguez {
         System.out.println("    Juego Ajedrez");
         imprimir(Tablero, 0, 0);
     }// fin del metodo
+
+    public static void Coronar(boolean jugador, int y, int x) {
+        int C = 0;
+        int T = 0;
+        int R = 0;
+        int P = 0;
+        int A = 0;
+        ArrayList<String> piezasPerdidas = new ArrayList();
+
+        if (jugador == true) {
+            for (int i = 0; i < Tablero.length; i++) {
+                for (int j = 0; j < Tablero.length; j++) {
+                    switch (Tablero[i][j]) {
+                        case "♜":
+                            T++;
+                            break;
+                        case "♞":
+                            C++;
+                            break;
+                        case "♝":
+                            A++;
+                            break;
+                        case "♚":
+                            R++;
+                            break;
+                        case "♟":
+                            P++;
+                            break;
+                    }
+                }
+            }
+
+            C = (2 - C);
+            T = (2 - T);
+            A = (2 - A);
+            R = (1 - R);
+            P = (8 - P);
+            piezasPerdidas = AñadirP(C, "♞", piezasPerdidas);
+            piezasPerdidas = AñadirP(T, "♜", piezasPerdidas);
+            piezasPerdidas = AñadirP(A, "♝", piezasPerdidas);
+            piezasPerdidas = AñadirP(R, "♚", piezasPerdidas);
+            piezasPerdidas = AñadirP(P, "♟", piezasPerdidas);
+        } else {
+            for (int i = 0; i < Tablero.length; i++) {
+                for (int j = 0; j < Tablero.length; j++) {
+                    switch (Tablero[i][j]) {
+                        case "♙":
+                            P++;
+                            break;
+                        case "♖":
+                            T++;
+                            break;
+                        case "♘":
+                            C++;
+                            break;
+                        case "♗":
+                            A++;
+                            break;
+                        case "♔":
+                            R++;
+                            break;
+                    }
+                }
+            }
+
+            C = (2 - C);
+            T = (2 - T);
+            A = (2 - A);
+            R = (1 - R);
+            P = (8 - P);
+            piezasPerdidas = AñadirP(C, "♘", piezasPerdidas);
+            piezasPerdidas = AñadirP(T, "♖", piezasPerdidas);
+            piezasPerdidas = AñadirP(A, "♗", piezasPerdidas);
+            piezasPerdidas = AñadirP(R, "♔", piezasPerdidas);
+            piezasPerdidas = AñadirP(P, "♙", piezasPerdidas);
+        }// fin de la condicion
+
+        String cadena = "";
+        for (int i = 0; i < piezasPerdidas.size(); i++) {
+            cadena += "" + (i + 1) + "- " + piezasPerdidas.get(i) + "\n";
+        }
+
+        int pos = 0;
+        try {
+
+            while (pos < 1 || pos > piezasPerdidas.size()) {
+                System.out.println("Ingrese la posicion de la pieza por la que desea cambiar: " + cadena);
+                pos = lectura.nextInt();
+            }
+            
+            Tablero[y][x] = piezasPerdidas.get((pos-1));
+
+        } catch (Exception e) {
+            System.out.println("Error! Dato invalido.");
+        }
+    }// fin del metodo para coronar
+
+    public static ArrayList AñadirP(int c, String p, ArrayList pi) {
+        for (int i = 0; i < c; i++) {
+            pi.add(p);
+        }
+
+        return pi;
+    }
 
 }// fin de la clase
