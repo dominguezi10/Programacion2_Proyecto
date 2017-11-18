@@ -662,7 +662,7 @@ public class JuegoAjedrez_IngridDominguez {
         String cadena = "";
         for (int i = 0; i < piezasPerdidas.size(); i++) {
             cadena += "" + (i + 1) + "- " + piezasPerdidas.get(i) + "\n";
-        }
+        }//
 
         int pos = 0;
         try {
