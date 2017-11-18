@@ -668,7 +668,7 @@ public class JuegoAjedrez_IngridDominguez {
         try {
 
             while (pos < 1 || pos > piezasPerdidas.size()) {
-                System.out.println("Ingrese la posicion de la pieza por la que desea cambiar: " + cadena);
+                System.out.println("Ingrese la posicion de la pieza por la que desea cambiar: \n" + cadena);
                 pos = lectura.nextInt();
             }
             

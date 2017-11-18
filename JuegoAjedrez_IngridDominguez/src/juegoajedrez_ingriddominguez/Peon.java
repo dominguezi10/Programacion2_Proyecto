@@ -60,6 +60,11 @@ public class Peon extends Pieza {
                 String piezaComer = "";
                 if (nuevaX > posicionX) {
                     error = metodo(matriz[posicionY + 1][posicionX + 1], matriz, jugador);
+                    
+                    if(matriz[posicionY + 1][posicionX + 1].equals("▓") ||
+                            matriz[posicionY + 1][posicionX + 1].equals("▒")){
+                        error += 1;
+                    }
                     return error;
                     /*piezaComer = matriz[posicionY + 1][posicionX + 1];
                     if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
@@ -87,6 +92,11 @@ public class Peon extends Pieza {
 
                 } else if (nuevaX < posicionX) {
                     error = metodo(matriz[posicionY + 1][posicionX - 1], matriz, jugador);
+                   if(matriz[posicionY + 1][posicionX - 1].equals("▓") ||
+                            matriz[posicionY + 1][posicionX - 1].equals("▒")){
+                        error += 1;
+                    }
+                    
                     return error;
                     /*piezaComer = matriz[posicionY + 1][posicionX - 1];
                     if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
@@ -149,6 +159,10 @@ public class Peon extends Pieza {
                 String piezaComer = "";
                 if (nuevaX > posicionX) {
                     error = metodo(matriz[posicionY - 1][posicionX + 1], matriz, jugador);
+                    if(matriz[posicionY - 1][posicionX + 1].equals("▓") ||
+                            matriz[posicionY - 1][posicionX + 1].equals("▒")){
+                        error += 1;
+                    }
                     return error;
                     /*piezaComer = matriz[posicionY - 1][posicionX + 1];
                     if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
@@ -173,6 +187,10 @@ public class Peon extends Pieza {
 
                 } else if (nuevaX < posicionX) {
                     error = metodo(matriz[posicionY - 1][posicionX - 1], matriz, jugador);
+                    if(matriz[posicionY - 1][posicionX - 1].equals("▓") ||
+                            matriz[posicionY - 1][posicionX - 1].equals("▒")){
+                        error += 1;
+                    }
                     return error;
                     /*piezaComer = matriz[posicionY - 1][posicionX - 1];
                     if (piezaComer.equals("▒") || piezaComer.equals("▓")) {
